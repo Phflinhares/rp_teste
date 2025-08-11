@@ -36,13 +36,6 @@ This project uses Apache Spark for distributed processing of data stored in Parq
 
 ---
 
-## Quick explanation
-
-- `pyspark`: to run Spark with Python  
-- `pandas` and `numpy`: to generate rate files and manipulate local data  
-- `pyarrow`: to read/write Parquet files in pandas
-
-
 ### Recommendations
 In a production database environment, I recommend implementing an incremental CDC (Change Data Capture) process that consistently analyzes the latest recorded file and inserts the new data accordingly.
 

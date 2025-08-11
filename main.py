@@ -1,4 +1,5 @@
-# src/main.py
+import shutil
+import os
 from pyspark.sql import SparkSession
 from process_history import create_wallet_history
 from calc_interest import calculate_daily_interest
@@ -29,10 +30,16 @@ wallet_history = create_wallet_history(spark, df_total)
 # Calculate interest
 payouts = calculate_daily_interest(spark, wallet_history, rates_path)
 
-
 # Save result
-payouts.write.mode("overwrite").parquet("data/output_daily_payouts")
+payouts.coalesce(1).write.mode("overwrite").parquet('data/output_daily_payouts')
 
+final_file = "data/output_daily_payouts/final_file.parquet"
+# Lock file and rename
+for file in os.listdir('data/output_daily_payouts'):
+    if file.endswith(".parquet"):
+        shutil.move(
+            os.path.join('data/output_daily_payouts', file),
+            final_file
+        )
 
-
-
+spark.stop()

@@ -43,7 +43,7 @@ This project uses Apache Spark for distributed processing of data stored in Parq
 - `pyarrow`: to read/write Parquet files in pandas
 
 
-### RECOMMENDATIONS
+### Recommendations
 In a production database environment, I recommend implementing an incremental CDC (Change Data Capture) process that consistently analyzes the latest recorded file and inserts the new data accordingly.
 
 I would structure the project into Bronze, Silver, and Gold layers: ingesting raw data in the Bronze layer, performing data cleansing and transformation in the Silver layer, and delivering the finalized DataFrame in the Gold layer.
